@@ -12,3 +12,6 @@ Do not make this branch production until a Vercel Preview generated from this br
 
 ## Future editing
 As pages are actively edited, place their maintained source copies in `overrides/`. Over time the site can be fully source-controlled without relying on the mirror bridge.
+
+
+Preview trigger: Git integration connected on 2026-10-01.

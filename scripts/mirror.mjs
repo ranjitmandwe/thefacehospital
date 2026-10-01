@@ -57,8 +57,8 @@ const SEO = {
     image: "/assets/v137/card-cancer.jpg"
   },
   "/facial/": {
-    title: "Facial Surgery & Aesthetics in Amravati | The Face Hospital",
-    description: "Surgeon-led facial surgery and aesthetics in Amravati for jaw correction, rhinoplasty, facial contouring, rejuvenation, corrective facial surgery and hair restoration.",
+    title: "Facial Surgery, Jaw Correction & Rhinoplasty in Amravati | The Face Hospital",
+    description: "Surgeon-led facial surgery and aesthetics in Amravati for jaw correction, rhinoplasty, facial contouring, facial rejuvenation, corrective facial surgery and hair restoration.",
     image: "/assets/v137/card-facial.jpg"
   },
   "/dental/": {
@@ -262,6 +262,29 @@ function schemaFor(route, title, description, canonical) {
       "url": SITE + "/",
       "name": "The Face Hospital"
     });
+
+    if (route === "/facial/") {
+      graph.push({
+        "@type": "Service",
+        "@id": canonical + "#service",
+        "name": "Facial Surgery & Aesthetics",
+        "serviceType": "Facial surgery and facial aesthetics",
+        "provider": { "@id": SITE + "/#clinic" },
+        "areaServed": ["Amravati", "Vidarbha", "Maharashtra"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Facial Surgery & Aesthetics Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Jaw Correction and Facial Balance" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rhinoplasty" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chin, Lip and Facial Contouring" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Facial Rejuvenation" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corrective Facial Surgery" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hair Restoration" } }
+          ]
+        }
+      });
+    }
 
     const parts = route.split("/").filter(Boolean);
     if (parts.length > 1) {

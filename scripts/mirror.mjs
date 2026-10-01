@@ -62,8 +62,8 @@ const SEO = {
     image: "/assets/v137/card-facial.jpg"
   },
   "/dental/": {
-    title: "Dental Implants & Orthodontics in Amravati | The Face Hospital",
-    description: "Dental implants, braces, clear aligners and smile correction at The Face Hospital, Amravati, with planning focused on function, stability and natural-looking results.",
+    title: "Dental Implants, Braces & Aligners in Amravati | The Face Hospital",
+    description: "Dental implants, braces, clear aligners, TMJ and facial pain care, sleep-airway evaluation and general dental care at The Face Hospital, Amravati.",
     image: "/assets/v137/card-dental.jpg"
   },
   "/dental/implants/": {
@@ -75,6 +75,21 @@ const SEO = {
     title: "Braces & Clear Aligners in Amravati | The Face Hospital",
     description: "Braces, clear aligners and bite correction for children, teens and adults at The Face Hospital, Amravati, with emphasis on function and long-term stability.",
     image: "/assets/ortho-v122/orthodontics-hero-approved.jpg"
+  },
+  "/dental/tmj/": {
+    title: "TMJ, Cervical & Facial Pain Care in Amravati | The Face Hospital",
+    description: "Evaluation and management of TMJ disorders, cervical pain, facial pain and neuralgia in Amravati with diagnosis-led treatment planning.",
+    image: "/assets/v137/card-dental.jpg"
+  },
+  "/dental/sleep-apnea/": {
+    title: "Sleep Apnea & Snoring Evaluation in Amravati | The Face Hospital",
+    description: "Assessment and treatment planning for snoring, sleep-disordered breathing and selected sleep apnea cases in Amravati, with dental and airway-focused options where appropriate.",
+    image: "/assets/v137/card-dental.jpg"
+  },
+  "/dental/dental-care/": {
+    title: "General Dental Care in Amravati | The Face Hospital",
+    description: "General and restorative dental care in Amravati with treatment planning focused on oral health, function and long-term maintenance.",
+    image: "/assets/v137/card-dental.jpg"
   }
 };
 const ALIASES = {
@@ -281,6 +296,28 @@ function schemaFor(route, title, description, canonical) {
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Facial Rejuvenation" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corrective Facial Surgery" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hair Restoration" } }
+          ]
+        }
+      });
+    }
+
+    if (route === "/dental/") {
+      graph.push({
+        "@type": "Service",
+        "@id": canonical + "#service",
+        "name": "Implants & Orthodontics",
+        "serviceType": "Dental implants, orthodontics and related dental care",
+        "provider": { "@id": SITE + "/#clinic" },
+        "areaServed": ["Amravati", "Vidarbha", "Maharashtra"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Implants & Orthodontics Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dental Implants" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Braces and Clear Aligners" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "TMJ, Cervical and Facial Pain Care" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sleep Apnea and Snoring Evaluation" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "General Dental Care" } }
           ]
         }
       });

@@ -18,7 +18,42 @@ const SEO = {
   },
   "/cancer/": {
     title: "Head & Neck Cancer Centre in Amravati | The Face Hospital",
-    description: "Specialist head and neck oncology care in Amravati for oral, tongue, throat, thyroid, salivary, jaw, skin and orbital cancers, with reconstruction and rehabilitation.",
+    description: "Specialist head and neck oncology care in Amravati and Vidarbha for oral, tongue, throat, thyroid, salivary, jaw, facial skin and orbital cancers, with reconstruction and rehabilitation.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/oral-tongue-cancer.html": {
+    title: "Oral & Tongue Cancer Treatment in Amravati | The Face Hospital",
+    description: "Evaluation and surgical treatment planning for oral cavity and tongue cancer in Amravati, including neck management, reconstruction, swallowing and speech-focused rehabilitation.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/throat-cancer.html": {
+    title: "Throat Cancer Care in Amravati | The Face Hospital",
+    description: "Specialist assessment and treatment planning for throat and upper aerodigestive tract cancers in Amravati, with emphasis on disease control and preservation of function.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/thyroid-cancer.html": {
+    title: "Thyroid Cancer Surgery in Amravati | The Face Hospital",
+    description: "Thyroid cancer evaluation and surgical care in Amravati, including neck assessment, treatment planning and coordinated follow-up for appropriate thyroid malignancies.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/salivary-cancer.html": {
+    title: "Salivary Gland Cancer Care in Amravati | The Face Hospital",
+    description: "Specialist evaluation and surgical planning for parotid and other salivary gland cancers in Amravati, with attention to facial nerve and functional outcomes where feasible.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/jaw-cancer.html": {
+    title: "Jaw Cancer Surgery & Reconstruction in Amravati | The Face Hospital",
+    description: "Surgical care for jaw and mandibular cancers in Amravati, including ablative surgery, neck treatment, reconstruction and rehabilitation planning when indicated.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/orbital-tumours.html": {
+    title: "Orbital Tumour Evaluation in Amravati | The Face Hospital",
+    description: "Specialist evaluation and multidisciplinary treatment planning for orbital and peri-orbital tumours in Amravati, with function-preserving approaches where clinically appropriate.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/cancer/types/facial-skin-cancer.html": {
+    title: "Facial Skin Cancer Surgery in Amravati | The Face Hospital",
+    description: "Evaluation and surgical management of facial skin cancers in Amravati, with oncologic clearance, reconstruction and attention to facial form and function.",
     image: "/assets/v137/card-cancer.jpg"
   },
   "/facial/": {
@@ -42,7 +77,6 @@ const SEO = {
     image: "/assets/ortho-v122/orthodontics-hero-approved.jpg"
   }
 };
-
 const ALIASES = {
   "/head-neck-cancer.html": "/cancer/",
   "/facial-surgery-aesthetics.html": "/facial/",
@@ -183,6 +217,7 @@ function schemaFor(route, title, description, canonical) {
       "name": "The Face Hospital",
       "url": SITE + "/",
       "telephone": "+91-74475-94447",
+      "areaServed": ["Amravati", "Vidarbha", "Maharashtra"],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "1st Floor, Tejul Tower, Opp. P. N. Gadgil & Kalyan Jewellers, Rajapeth–Rajkamal Road",
@@ -227,6 +262,30 @@ function schemaFor(route, title, description, canonical) {
       "url": SITE + "/",
       "name": "The Face Hospital"
     });
+
+    const parts = route.split("/").filter(Boolean);
+    if (parts.length > 1) {
+      const items = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/" }];
+      let built = "";
+      parts.forEach((part, index) => {
+        built += "/" + part;
+        const isFile = /\.html?$/.test(part);
+        const itemUrl = SITE + built + (isFile ? "" : "/");
+        const configured = SEO[itemUrl.replace(SITE, "")];
+        const fallback = part.replace(/[-_]/g, " ").replace(/\.html?$/, "").replace(/\b\w/g, ch => ch.toUpperCase());
+        items.push({
+          "@type": "ListItem",
+          "position": index + 2,
+          "name": configured?.title?.split("|")[0].trim() || fallback,
+          "item": itemUrl
+        });
+      });
+      graph.push({
+        "@type": "BreadcrumbList",
+        "@id": canonical + "#breadcrumb",
+        "itemListElement": items
+      });
+    }
   }
 
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, (k, v) => v === undefined ? undefined : v);

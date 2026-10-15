@@ -457,6 +457,175 @@ function schemaFor(route, title, description, canonical) {
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, (k, v) => v === undefined ? undefined : v);
 }
 
+
+const DISEASE_PAGES = {
+  "/cancer/types/oral-tongue-cancer.html": {
+    eyebrow: "ORAL & TONGUE CANCER",
+    h1: "Oral & Tongue Cancer Care in Amravati",
+    intro: "Oral and tongue cancers are best managed after careful examination, biopsy confirmation and imaging-based staging. Treatment is individualised to the exact subsite, stage, neck-node status and the patient's general health.",
+    sections: [
+      ["When should you seek evaluation?", "A persistent mouth ulcer, unexplained growth, bleeding, pain, difficulty chewing or swallowing, reduced tongue movement, a neck lump, or a lesion that does not heal should be assessed promptly."],
+      ["How is diagnosis confirmed?", "Clinical examination is followed by biopsy or histopathology. CT, MRI or PET-CT may be advised depending on the tumour site and stage. Neck assessment is an important part of planning."],
+      ["What may treatment involve?", "Depending on stage and location, treatment may include surgery, neck dissection, reconstruction, radiotherapy, systemic therapy or a combination. The sequence is decided individually."],
+      ["What about speech and swallowing?", "Where oncologically safe, treatment planning aims to preserve tongue mobility, swallowing, speech and appearance. Reconstruction and rehabilitation are considered when required."]
+    ],
+    faqs: [
+      ["Does every oral cancer need major surgery?", "No. The extent of surgery depends on the size, depth, location and spread of the tumour. Some early cancers need limited surgery, while larger tumours may need neck surgery and reconstruction."],
+      ["When is neck dissection considered?", "Neck treatment depends on the primary tumour, depth of invasion, imaging and whether lymph nodes are clinically or radiologically involved."],
+      ["Can reconstruction be done at the same operation?", "In many appropriate cases, reconstruction can be planned at the time of tumour removal to restore form and function."],
+      ["Is a second opinion useful?", "A second opinion can be useful before major surgery, when reconstruction is expected, or when more than one treatment pathway is possible."]
+    ]
+  },
+  "/cancer/types/throat-cancer.html": {
+    eyebrow: "THROAT & LARYNGEAL CANCER",
+    h1: "Throat & Laryngeal Cancer Care in Amravati",
+    intro: "Throat and laryngeal cancers can affect voice, swallowing and breathing. Accurate endoscopic assessment, imaging and pathology are used to determine the safest and most effective treatment pathway.",
+    sections: [
+      ["Symptoms that need assessment", "Persistent hoarseness, painful or difficult swallowing, a neck lump, unexplained throat pain, coughing blood or persistent ear pain can require specialist evaluation."],
+      ["How is the disease assessed?", "Examination may include endoscopy, biopsy and CT or MRI. Treatment planning depends on the exact site, stage, airway status and expected impact on voice and swallowing."],
+      ["Treatment planning", "Depending on the site and stage, care may include surgery, radiotherapy, systemic therapy or combined treatment. Multidisciplinary planning is important."],
+      ["Function matters", "When clinically appropriate, treatment aims to preserve voice, swallowing and airway function while maintaining cancer control."]
+    ],
+    faqs: [
+      ["Does throat cancer always require surgery?", "No. Some cancers are treated primarily with radiotherapy or combined treatment, while others benefit from surgery. The choice depends on the site, stage and patient factors."],
+      ["Why is endoscopy important?", "Endoscopy helps define the exact site and extent of disease and allows biopsy when required."],
+      ["Can voice be preserved?", "Voice-preserving treatment is considered whenever it is oncologically appropriate, but the safest option depends on tumour extent and location."],
+      ["What should I bring for a second opinion?", "Bring pathology reports, scans and imaging files, previous treatment records and a current medication list."]
+    ]
+  },
+  "/cancer/types/thyroid-cancer.html": {
+    eyebrow: "THYROID CANCER",
+    h1: "Thyroid Cancer Evaluation & Surgery in Amravati",
+    intro: "Thyroid cancer treatment depends on tumour type, size, lymph-node involvement, imaging and pathology. Many patients have excellent outcomes when evaluation and treatment are appropriately planned.",
+    sections: [
+      ["How is thyroid cancer evaluated?", "Ultrasound, thyroid-function testing and needle sampling may be used where appropriate. CT or other imaging may be required for selected or advanced cases."],
+      ["When is surgery considered?", "Surgery may involve removal of part or all of the thyroid, with lymph-node surgery when indicated. The operation is tailored to tumour type and stage."],
+      ["What happens after surgery?", "Pathology determines the final stage and whether additional treatment or endocrine follow-up is required."],
+      ["Voice and nerve preservation", "Careful surgical planning pays particular attention to the recurrent laryngeal nerves, parathyroid glands and surrounding structures."]
+    ],
+    faqs: [
+      ["Does every thyroid nodule mean cancer?", "No. Most thyroid nodules are not cancer. Ultrasound features, clinical assessment and cytology help determine risk."],
+      ["Is total thyroidectomy always required?", "No. The extent of surgery depends on the tumour type, size, location, risk profile and lymph-node findings."],
+      ["Will I need radioactive iodine?", "Not every patient needs radioactive iodine. The decision depends on final pathology and risk assessment."],
+      ["When is neck dissection needed?", "Lymph-node surgery is considered when nodes are involved or when the tumour pattern and stage indicate it."]
+    ]
+  },
+  "/cancer/types/salivary-cancer.html": {
+    eyebrow: "SALIVARY GLAND TUMOURS",
+    h1: "Parotid & Salivary Gland Tumour Care in Amravati",
+    intro: "Salivary gland tumours may be benign or malignant. Assessment focuses on defining the tumour, its relationship to the facial nerve and nearby structures, and whether lymph nodes are involved.",
+    sections: [
+      ["What symptoms need evaluation?", "A persistent parotid or salivary-gland lump, rapid growth, facial weakness, pain, numbness or enlarged neck nodes should be assessed."],
+      ["How is diagnosis planned?", "Clinical examination, ultrasound, CT or MRI and needle sampling may be used depending on the case."],
+      ["Surgical planning", "Surgery is tailored to the gland, tumour extent and pathology. In parotid surgery, preservation of the facial nerve is a major consideration whenever oncologically safe."],
+      ["When is additional treatment needed?", "Final pathology and stage determine whether radiotherapy or other treatment should be considered."]
+    ],
+    faqs: [
+      ["Are all parotid tumours cancer?", "No. Many parotid tumours are benign, but persistent or enlarging lumps should still be assessed."],
+      ["Can the facial nerve be preserved?", "Preservation is prioritised when the nerve is not directly involved by tumour and it is oncologically safe to do so."],
+      ["Is biopsy always done before surgery?", "Needle sampling is often useful, but the exact diagnostic pathway depends on the clinical and imaging findings."],
+      ["Can salivary tumours recur?", "Some tumour types can recur, which is why pathology-directed follow-up is important."]
+    ]
+  },
+  "/cancer/types/jaw-cancer.html": {
+    eyebrow: "JAW & MANDIBULAR CANCER",
+    h1: "Jaw Cancer Surgery & Reconstruction in Amravati",
+    intro: "Tumours involving the mandible or maxilla require careful planning because cancer removal may affect chewing, speech, facial contour and dental rehabilitation. Resection and reconstruction are planned together whenever possible.",
+    sections: [
+      ["How is jaw involvement assessed?", "Clinical examination and CT or MRI help define bone involvement, tumour extent and relationship to teeth, soft tissue and neck nodes."],
+      ["What may surgery involve?", "Depending on the tumour, surgery may range from limited bone removal to segmental jaw resection with neck treatment when indicated."],
+      ["How is the jaw reconstructed?", "Reconstruction may use local tissue, regional flaps, free tissue transfer, plates, bone grafts or vascularised bone depending on the defect and patient factors."],
+      ["What is the long-term goal?", "Cancer control comes first, while reconstruction aims to restore facial form, oral competence, swallowing, speech and the possibility of later dental rehabilitation where feasible."]
+    ],
+    faqs: [
+      ["Does jaw cancer always require removal of part of the jaw?", "No. The extent of bone removal depends on whether and how deeply the tumour involves the jaw."],
+      ["Can reconstruction be performed immediately?", "In many suitable patients, reconstruction is performed during the same operation so that form and function can be restored as early as possible."],
+      ["When is a free flap used?", "Free-tissue reconstruction is considered for larger or complex defects when vascularised tissue or bone offers the best reconstructive option."],
+      ["Can dental rehabilitation be planned later?", "In selected patients, dental rehabilitation can be considered after healing and completion of cancer treatment."]
+    ]
+  },
+  "/cancer/types/facial-skin-cancer.html": {
+    eyebrow: "FACIAL & SCALP SKIN CANCER",
+    h1: "Facial & Scalp Skin Cancer Surgery in Amravati",
+    intro: "Skin cancers of the face and scalp require removal with adequate oncologic margins while preserving important structures and planning reconstruction for function and appearance.",
+    sections: [
+      ["Which lesions need assessment?", "A non-healing ulcer, recurrent bleeding spot, changing lesion, persistent crusted area or rapidly growing skin mass should be evaluated."],
+      ["How is diagnosis confirmed?", "Clinical examination and biopsy establish the diagnosis. Imaging may be required for larger, recurrent or deeply invasive lesions."],
+      ["Surgery and reconstruction", "The operation is planned around tumour clearance and the best reconstructive option for the eyelids, nose, lips, cheek, ear or scalp when involved."],
+      ["Follow-up matters", "Skin-cancer follow-up includes surveillance of the treated site, regional lymph nodes where relevant and assessment for additional skin lesions."]
+    ],
+    faqs: [
+      ["Can facial skin cancer be removed without major deformity?", "Many defects can be reconstructed effectively, but the method depends on tumour size, location and the amount of tissue that must be removed safely."],
+      ["Is biopsy needed first?", "Biopsy is commonly used to confirm the diagnosis before definitive treatment."],
+      ["Will I need a skin graft or flap?", "Small defects may close directly, while larger or strategically located defects may need a local flap, skin graft or more complex reconstruction."],
+      ["Can skin cancer spread to lymph nodes?", "Some skin cancers have a higher risk of nodal spread, so node assessment is considered when clinically indicated."]
+    ]
+  },
+  "/cancer/types/orbital-tumours.html": {
+    eyebrow: "ORBITAL & PERIORBITAL TUMOURS",
+    h1: "Orbital & Periorbital Tumour Evaluation in Amravati",
+    intro: "Tumours around the eye and orbit require detailed imaging and multidisciplinary planning because treatment must balance disease control with vision, eye movement, facial form and adjacent structures.",
+    sections: [
+      ["What symptoms need evaluation?", "New eye protrusion, double vision, persistent swelling, pain, reduced vision, restricted eye movement or a mass around the orbit should be assessed."],
+      ["How are orbital tumours investigated?", "CT and MRI are commonly used to define the lesion and its relation to the eye, muscles, bone, sinuses and skull base. Biopsy may be required."],
+      ["How is treatment planned?", "Management depends on pathology, tumour location and extent and may involve surgery, observation, radiotherapy, systemic therapy or combined care."],
+      ["Preserving function", "Where clinically possible, planning aims to protect vision, eye movement and facial form while achieving appropriate tumour control."]
+    ],
+    faqs: [
+      ["Does every orbital tumour require surgery?", "No. Treatment depends on the tumour type, symptoms, growth pattern and imaging findings."],
+      ["Why are CT and MRI both sometimes needed?", "The two scans provide complementary information about bone, soft tissue, nerves and adjacent structures."],
+      ["Can double vision improve after treatment?", "It may improve depending on the cause and the structures affected, but the likely outcome is individual and should be discussed after examination and imaging review."],
+      ["Is multidisciplinary care important?", "Yes. Depending on the tumour, collaboration with ophthalmology, radiology, pathology, radiation oncology or neurosurgery may be required."]
+    ]
+  }
+};
+
+function diseasePageHtml(route, data) {
+  const faq = data.faqs.map(([q,a]) => `
+    <details class="faq"><summary>${escapeHtml(q)}</summary><p>${escapeHtml(a)}</p></details>`).join("");
+  const sections = data.sections.map(([h,p]) => `
+    <article class="info-card"><h2>${escapeHtml(h)}</h2><p>${escapeHtml(p)}</p></article>`).join("");
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(data.h1)} | The Face Cancer Centre</title>
+<meta name="description" content="${escapeHtml(data.intro)}">
+<style>
+:root{--ink:#162033;--muted:#596579;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.65}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav{max-width:1160px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;color:var(--wine);text-decoration:none;letter-spacing:.02em}.nav a.link{color:var(--ink);text-decoration:none;font-size:14px}
+.hero{background:linear-gradient(135deg,#f7f9fc,#eef3f8);border-bottom:1px solid var(--line)}.hero-in{max-width:1160px;margin:auto;padding:64px 20px 54px}.eyebrow{color:var(--wine);font-weight:800;font-size:12px;letter-spacing:.14em}.hero h1{font-size:44px;line-height:1.12;margin:10px 0 18px;max-width:900px}.hero p{font-size:18px;color:var(--muted);max-width:880px;margin:0}.cta{display:inline-block;margin-top:24px;background:var(--wine);color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:700}
+.wrap{max-width:1160px;margin:auto;padding:42px 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.info-card{border:1px solid var(--line);border-radius:18px;padding:24px;background:#fff}.info-card h2{font-size:21px;margin:0 0 8px}.info-card p{margin:0;color:var(--muted)}
+.faqs{margin-top:46px;padding:32px;border-radius:20px;background:var(--soft);border:1px solid var(--line)}.faqs h2{margin-top:0}.faq{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}.faq summary{cursor:pointer;font-weight:700;padding:16px 0}.faq p{color:var(--muted);margin:0 0 16px}
+.review{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.back{margin-top:30px}.back a{color:var(--navy);font-weight:700;text-decoration:none}
+.footer{margin-top:50px;background:var(--navy);color:#fff}.footer-in{max-width:1160px;margin:auto;padding:28px 20px;font-size:14px}
+@media(max-width:760px){.nav{align-items:flex-start}.hero h1{font-size:34px}.grid{grid-template-columns:1fr}.hero-in{padding-top:46px}.faqs{padding:22px}}
+</style>
+</head>
+<body>
+<header class="top"><nav class="nav"><a class="brand" href="/cancer/">THE FACE CANCER CENTRE</a><a class="link" href="/">The Face Hospital</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in"><div class="eyebrow">${escapeHtml(data.eyebrow)}</div><h1>${escapeHtml(data.h1)}</h1><p>${escapeHtml(data.intro)}</p><a class="cta" href="/cancer/#consultation">Book Cancer Consultation / Second Opinion</a></div></section>
+<section class="wrap"><div class="grid">${sections}</div>
+<section class="faqs"><h2>Common questions patients ask</h2>${faq}<p class="review">General patient information. Individual treatment decisions require examination, pathology and imaging review. Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p></section>
+<p class="back"><a href="/cancer/">← Back to The Face Cancer Centre</a></p></section>
+</main>
+<footer class="footer"><div class="footer-in">The Face Cancer Centre • The Face Hospital • Amravati • Appointment desk: +91 74475 94447</div></footer>
+</body></html>`;
+}
+
+async function createDiseasePages() {
+  for (const [route, data] of Object.entries(DISEASE_PAGES)) {
+    const file = path.join(OUT, route.replace(/^\//, ""));
+    await mkdir(path.dirname(file), { recursive: true });
+    await writeFile(file, diseasePageHtml(route, data));
+  }
+  console.log(`Cancer disease pages: generated ${Object.keys(DISEASE_PAGES).length} answer-first pages.`);
+}
+
 async function applySeo() {
   const htmlFiles = (await walk(OUT)).filter(f => f.toLowerCase().endsWith(".html"));
   const sitemap = [];
@@ -533,6 +702,7 @@ while (queue.length) {
 }
 
 await copyTree(OVERRIDES, OUT);
+await createDiseasePages();
 await applySeo();
 
 const count = seen.size;

@@ -66,6 +66,26 @@ const SEO = {
     description: "Contact The Face Hospital, Rajapeth, Amravati for cancer, facial surgery, dental implant and orthodontic appointments. View timings, phone numbers, WhatsApp and directions.",
     image: "/assets/v137/home-hero-core.jpg"
   },
+  "/resources/": {
+    title: "Head & Neck Cancer Patient Resources | The Face Hospital",
+    description: "Patient education from The Face Hospital, Amravati: warning signs, second-opinion preparation, treatment planning, reconstruction and recovery guidance for head and neck cancer.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/resources/mouth-ulcer-oral-cancer-warning-signs/": {
+    title: "Persistent Mouth Ulcer: When to Check for Oral Cancer | The Face Hospital",
+    description: "A practical patient guide to persistent mouth ulcers, oral cancer warning signs, when to seek specialist assessment and what evaluation may involve.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/resources/head-neck-cancer-second-opinion-checklist/": {
+    title: "Head & Neck Cancer Second Opinion Checklist | The Face Hospital",
+    description: "What to bring for a head and neck cancer second opinion: biopsy, scans, treatment records, medicines and key questions to ask before major treatment.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/resources/jaw-reconstruction-after-cancer-surgery/": {
+    title: "Jaw Reconstruction After Cancer Surgery | Patient Guide",
+    description: "Understand why jaw reconstruction may be needed after cancer surgery, common reconstructive options and the goals for speech, swallowing, facial form and rehabilitation.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
   "/facial/": {
     title: "Facial Surgery, Jaw Correction & Rhinoplasty in Amravati | The Face Hospital",
     description: "Surgeon-led facial surgery and aesthetics in Amravati for jaw correction, rhinoplasty, facial contouring, facial rejuvenation, corrective facial surgery and hair restoration.",
@@ -828,6 +848,120 @@ async function createTrustPages() {
   console.log("Trust pages: generated doctor profile and contact page.");
 }
 
+
+const RESOURCE_ARTICLES = {
+  "/resources/mouth-ulcer-oral-cancer-warning-signs/": {
+    eyebrow: "PATIENT GUIDE",
+    h1: "Persistent Mouth Ulcer: When Should You Get It Checked?",
+    intro: "Most mouth ulcers are not cancer, but an ulcer or growth that does not heal deserves proper examination. Early assessment is especially important when symptoms persist or are associated with bleeding, pain, reduced tongue movement or a neck lump.",
+    sections: [
+      ["Warning signs that need assessment", "Seek evaluation for a mouth ulcer or patch that persists, an unexplained growth, repeated bleeding, progressive pain, difficulty chewing or swallowing, reduced tongue movement, unexplained numbness, or a persistent neck lump."],
+      ["What may happen at the first consultation?", "The mouth, tongue, jaw and neck are examined carefully. If a suspicious lesion is present, biopsy may be advised. Imaging such as CT or MRI is selected when needed to define the extent of disease."],
+      ["Why early diagnosis matters", "Earlier-stage disease may allow less extensive treatment and can make preservation of speech, swallowing and appearance more achievable. The exact benefit depends on tumour site, biology and stage."],
+      ["What should you avoid doing?", "Do not repeatedly self-treat a persistent lesion with topical medicines while delaying examination. A non-healing lesion needs diagnosis rather than prolonged symptomatic treatment."]
+    ]
+  },
+  "/resources/head-neck-cancer-second-opinion-checklist/": {
+    eyebrow: "SECOND OPINION",
+    h1: "Head & Neck Cancer Second Opinion: What to Bring",
+    intro: "A second opinion is most useful when the reviewing surgeon can see the original pathology, imaging and treatment history. Keeping these records together can reduce duplication and help clarify treatment alternatives.",
+    sections: [
+      ["Pathology", "Bring the biopsy or histopathology report. If available and requested, carry pathology slides or blocks for review."],
+      ["Imaging", "Bring both the written reports and the actual CT, MRI or PET-CT images, preferably in digital form. The images themselves may change surgical or reconstructive planning."],
+      ["Previous treatment records", "Carry operation notes, discharge summaries, radiotherapy records, chemotherapy or immunotherapy details, and any previous cancer-related procedures."],
+      ["Questions worth asking", "Ask about stage, treatment alternatives, expected surgical extent, need for neck treatment, reconstruction, speech and swallowing impact, recovery, rehabilitation and whether additional treatment may be required."]
+    ]
+  },
+  "/resources/jaw-reconstruction-after-cancer-surgery/": {
+    eyebrow: "RECONSTRUCTION & REHABILITATION",
+    h1: "Jaw Reconstruction After Cancer Surgery: What Patients Should Know",
+    intro: "When cancer surgery removes part of the mandible or maxilla, reconstruction may be needed to restore facial form, oral competence, speech, swallowing and the possibility of later dental rehabilitation.",
+    sections: [
+      ["Why reconstruction may be required", "The need for reconstruction depends on the size and location of the defect, soft-tissue loss, remaining bone, previous treatment and the patient's overall condition."],
+      ["What reconstructive options exist?", "Options can include local or regional tissue, reconstruction plates, bone grafts, free-tissue transfer or vascularised bone. The choice is individual and depends on the defect and treatment plan."],
+      ["Can reconstruction be performed at the same operation?", "In many suitable patients, tumour removal and reconstruction can be planned together so that form and function are restored as early as safely possible."],
+      ["What happens after reconstruction?", "Recovery may include wound care, nutrition support, speech and swallowing therapy, physiotherapy, surveillance and later dental rehabilitation where appropriate."]
+    ]
+  }
+};
+
+function resourceArticleHtml(route, data) {
+  const cards = data.sections.map(([h,p]) => `<article class="card"><h2>${escapeHtml(h)}</h2><p>${escapeHtml(p)}</p></article>`).join("");
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(data.h1)} | The Face Hospital</title>
+<meta name="description" content="${escapeHtml(data.intro)}">
+<style>
+:root{--ink:#172033;--muted:#5c6676;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.65}
+header{border-bottom:1px solid var(--line)}.nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;gap:18px}.nav a{text-decoration:none;color:var(--ink);font-weight:700}.brand{color:var(--wine)!important}
+.hero{background:linear-gradient(135deg,#f8fafc,#eef3f8)}.hero-in,.wrap{max-width:1050px;margin:auto;padding:50px 20px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--wine)}h1{font-size:42px;line-height:1.15;margin:10px 0 14px}.lead{font-size:18px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border:1px solid var(--line);border-radius:18px;padding:24px}.card h2{font-size:21px;margin-top:0}.card p{color:var(--muted)}
+.note{margin-top:30px;padding:24px;border-radius:18px;background:#fff8f9;border:1px solid #ecd7db}.note p{margin:0;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:11px 17px;border-radius:999px;background:var(--wine);color:#fff;text-decoration:none;font-weight:700}.btn.alt{background:var(--navy)}
+.footer{margin-top:45px;background:#081f39;color:#fff}.footer-in{max-width:1050px;margin:auto;padding:26px 20px}.footer a{color:#fff}
+@media(max-width:760px){h1{font-size:34px}.grid{grid-template-columns:1fr}.actions .btn{width:100%;text-align:center}}
+</style></head><body>
+<header><nav class="nav"><a class="brand" href="/">THE FACE HOSPITAL</a><a href="/resources/">Patient Resources</a><a href="/cancer/">Cancer Centre</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in"><div class="eyebrow">${escapeHtml(data.eyebrow)}</div><h1>${escapeHtml(data.h1)}</h1><p class="lead">${escapeHtml(data.intro)}</p></div></section>
+<section class="wrap"><div class="grid">${cards}</div>
+<section class="note"><p><strong>Medical review:</strong> Dr Ranjit Mandwe, Head & Neck Oncosurgeon. This page provides general patient education and does not replace individual examination, pathology review or imaging-based treatment planning.</p></section>
+<div class="actions"><a class="btn" href="/cancer/#consultation">Book Cancer Consultation / Second Opinion</a><a class="btn alt" href="/resources/">More Patient Resources</a></div>
+</section></main>
+<footer class="footer"><div class="footer-in">The Face Hospital • Amravati • <a href="/contact/">Appointments & directions</a></div></footer>
+</body></html>`;
+}
+
+function resourcesHubHtml() {
+  const cards = Object.entries(RESOURCE_ARTICLES).map(([route,data]) => `
+    <a class="resource-card" href="${route}">
+      <span>${escapeHtml(data.eyebrow)}</span>
+      <strong>${escapeHtml(data.h1)}</strong>
+      <p>${escapeHtml(data.intro)}</p>
+      <em>Read guide →</em>
+    </a>`).join("");
+
+  const diseaseCards = Object.entries(DISEASE_PAGES).map(([route,data]) => `
+    <a class="disease" href="${route}">${escapeHtml(data.eyebrow)} →</a>`).join("");
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Head & Neck Cancer Patient Resources | The Face Hospital</title>
+<meta name="description" content="Patient education from The Face Hospital, Amravati: warning signs, second-opinion preparation, cancer treatment planning, reconstruction and recovery guidance.">
+<style>
+:root{--ink:#172033;--muted:#5c6676;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.65}
+header{border-bottom:1px solid var(--line)}.nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between}.nav a{text-decoration:none;color:var(--ink);font-weight:700}.brand{color:var(--wine)!important}
+.hero{background:linear-gradient(135deg,#f8fafc,#eef3f8)}.hero-in,.wrap{max-width:1160px;margin:auto;padding:52px 20px}.hero h1{font-size:44px;line-height:1.12;margin:0 0 14px}.hero p{font-size:18px;color:var(--muted);max-width:900px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.resource-card{display:flex;flex-direction:column;min-height:330px;border:1px solid var(--line);border-radius:18px;padding:24px;text-decoration:none;color:var(--ink)}.resource-card span{font-size:11px;letter-spacing:.1em;color:var(--wine);font-weight:800}.resource-card strong{font-size:21px;line-height:1.3;margin-top:10px}.resource-card p{color:var(--muted)}.resource-card em{margin-top:auto;color:var(--navy);font-style:normal;font-weight:700}
+.disease-wrap{margin-top:42px;padding:28px;border-radius:20px;background:var(--soft);border:1px solid var(--line)}.disease-wrap h2{margin-top:0}.disease-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.disease{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;text-decoration:none;color:var(--navy);font-weight:700}
+.review{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}.footer{margin-top:45px;background:#081f39;color:#fff}.footer-in{max-width:1160px;margin:auto;padding:26px 20px}.footer a{color:#fff}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.disease-grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+</style></head><body>
+<header><nav class="nav"><a class="brand" href="/">THE FACE HOSPITAL</a><a href="/doctor/dr-ranjit-mandwe/">Dr Ranjit Mandwe</a><a href="/contact/">Contact</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in"><h1>Patient Resources: Head & Neck Cancer</h1><p>Clear, practical information for patients and families preparing for evaluation, treatment, second opinion, reconstruction and recovery.</p></div></section>
+<section class="wrap">
+<div class="grid">${cards}</div>
+<section class="disease-wrap"><h2>Explore cancer-specific guides</h2><div class="disease-grid">${diseaseCards}</div></section>
+<p class="review">All medical content is reviewed by Dr Ranjit Mandwe, Head & Neck Oncosurgeon. Information is educational and does not replace individual clinical assessment.</p>
+</section></main>
+<footer class="footer"><div class="footer-in">The Face Hospital • Amravati • <a href="/cancer/">Cancer Centre</a> • <a href="/contact/">Appointments</a></div></footer>
+</body></html>`;
+}
+
+async function createResourcePages() {
+  const hub = path.join(OUT, "resources/index.html");
+  await mkdir(path.dirname(hub), { recursive: true });
+  await writeFile(hub, resourcesHubHtml());
+  for (const [route,data] of Object.entries(RESOURCE_ARTICLES)) {
+    const file = path.join(OUT, route.replace(/^\//,""), "index.html");
+    await mkdir(path.dirname(file), { recursive: true });
+    await writeFile(file, resourceArticleHtml(route,data));
+  }
+  console.log(`Resources: generated 1 hub and ${Object.keys(RESOURCE_ARTICLES).length} patient guides.`);
+}
+
 async function createDiseasePages() {
   for (const [route, data] of Object.entries(DISEASE_PAGES)) {
     const file = path.join(OUT, route.replace(/^\//, ""));
@@ -859,7 +993,9 @@ async function applySeo() {
       html = html
         .replace(/href=["']\/cancer\/#surgeon["']/gi, 'href="/doctor/dr-ranjit-mandwe/"')
         .replace(/href=["']#surgeon["']/gi, 'href="/doctor/dr-ranjit-mandwe/"')
-        .replace(/href=["']\/contact\.html["']/gi, 'href="/contact/"');
+        .replace(/href=["']\/contact\.html["']/gi, 'href="/contact/"')
+        .replace(/href=["']#resources["']/gi, 'href="/resources/"')
+        .replace(/href=["']\/resources\.html["']/gi, 'href="/resources/"');
     }
 
     if (configured.title) {
@@ -921,6 +1057,7 @@ while (queue.length) {
 await copyTree(OVERRIDES, OUT);
 await createDiseasePages();
 await createTrustPages();
+await createResourcePages();
 await applySeo();
 
 const count = seen.size;

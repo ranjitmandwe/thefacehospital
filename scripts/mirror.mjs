@@ -580,11 +580,55 @@ const DISEASE_PAGES = {
   }
 };
 
+const RELATED_DISEASE_LINKS = {
+  "/cancer/types/oral-tongue-cancer.html": [
+    "/cancer/types/jaw-cancer.html",
+    "/cancer/types/throat-cancer.html",
+    "/cancer/types/salivary-cancer.html"
+  ],
+  "/cancer/types/throat-cancer.html": [
+    "/cancer/types/oral-tongue-cancer.html",
+    "/cancer/types/thyroid-cancer.html",
+    "/cancer/types/salivary-cancer.html"
+  ],
+  "/cancer/types/thyroid-cancer.html": [
+    "/cancer/types/throat-cancer.html",
+    "/cancer/types/salivary-cancer.html",
+    "/cancer/types/oral-tongue-cancer.html"
+  ],
+  "/cancer/types/salivary-cancer.html": [
+    "/cancer/types/oral-tongue-cancer.html",
+    "/cancer/types/thyroid-cancer.html",
+    "/cancer/types/facial-skin-cancer.html"
+  ],
+  "/cancer/types/jaw-cancer.html": [
+    "/cancer/types/oral-tongue-cancer.html",
+    "/cancer/types/salivary-cancer.html",
+    "/cancer/types/facial-skin-cancer.html"
+  ],
+  "/cancer/types/facial-skin-cancer.html": [
+    "/cancer/types/orbital-tumours.html",
+    "/cancer/types/salivary-cancer.html",
+    "/cancer/types/jaw-cancer.html"
+  ],
+  "/cancer/types/orbital-tumours.html": [
+    "/cancer/types/facial-skin-cancer.html",
+    "/cancer/types/salivary-cancer.html",
+    "/cancer/types/jaw-cancer.html"
+  ]
+};
+
 function diseasePageHtml(route, data) {
   const faq = data.faqs.map(([q,a]) => `
     <details class="faq"><summary>${escapeHtml(q)}</summary><p>${escapeHtml(a)}</p></details>`).join("");
   const sections = data.sections.map(([h,p]) => `
     <article class="info-card"><h2>${escapeHtml(h)}</h2><p>${escapeHtml(p)}</p></article>`).join("");
+  const relatedRoutes = RELATED_DISEASE_LINKS[route] || [];
+  const related = relatedRoutes.map(link => {
+    const item = DISEASE_PAGES[link];
+    if (!item) return "";
+    return `<a class="related-card" href="${link}"><span>${escapeHtml(item.eyebrow)}</span><strong>${escapeHtml(item.h1.replace(" in Amravati", ""))}</strong><em>Read patient guide →</em></a>`;
+  }).join("");
 
   return `<!doctype html>
 <html lang="en">
@@ -597,23 +641,69 @@ function diseasePageHtml(route, data) {
 :root{--ink:#162033;--muted:#596579;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.65}
 .top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav{max-width:1160px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;color:var(--wine);text-decoration:none;letter-spacing:.02em}.nav a.link{color:var(--ink);text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(135deg,#f7f9fc,#eef3f8);border-bottom:1px solid var(--line)}.hero-in{max-width:1160px;margin:auto;padding:64px 20px 54px}.eyebrow{color:var(--wine);font-weight:800;font-size:12px;letter-spacing:.14em}.hero h1{font-size:44px;line-height:1.12;margin:10px 0 18px;max-width:900px}.hero p{font-size:18px;color:var(--muted);max-width:880px;margin:0}.cta{display:inline-block;margin-top:24px;background:var(--wine);color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:700}
+.crumbs{max-width:1160px;margin:auto;padding:16px 20px 0;font-size:13px;color:var(--muted)}.crumbs a{color:var(--navy);text-decoration:none;font-weight:700}
+.hero{background:linear-gradient(135deg,#f7f9fc,#eef3f8);border-bottom:1px solid var(--line)}.hero-in{max-width:1160px;margin:auto;padding:46px 20px 54px}.eyebrow{color:var(--wine);font-weight:800;font-size:12px;letter-spacing:.14em}.hero h1{font-size:44px;line-height:1.12;margin:10px 0 18px;max-width:900px}.hero p{font-size:18px;color:var(--muted);max-width:880px;margin:0}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.cta{display:inline-block;background:var(--wine);color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:700}.cta.secondary{background:#fff;color:var(--navy);border:1px solid #cfd7e2}.cta.whatsapp{background:#245b47}
 .wrap{max-width:1160px;margin:auto;padding:42px 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.info-card{border:1px solid var(--line);border-radius:18px;padding:24px;background:#fff}.info-card h2{font-size:21px;margin:0 0 8px}.info-card p{margin:0;color:var(--muted)}
-.faqs{margin-top:46px;padding:32px;border-radius:20px;background:var(--soft);border:1px solid var(--line)}.faqs h2{margin-top:0}.faq{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}.faq summary{cursor:pointer;font-weight:700;padding:16px 0}.faq p{color:var(--muted);margin:0 0 16px}
+.second-opinion{margin-top:30px;padding:26px;border-radius:18px;background:#fff8f9;border:1px solid #ecd7db}.second-opinion h2{margin:0 0 8px;font-size:23px}.second-opinion p{margin:0;color:var(--muted)}.second-opinion ul{margin:12px 0 0;padding-left:20px;color:var(--muted)}
+.faqs{margin-top:34px;padding:32px;border-radius:20px;background:var(--soft);border:1px solid var(--line)}.faqs h2{margin-top:0}.faq{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}.faq summary{cursor:pointer;font-weight:700;padding:16px 0}.faq p{color:var(--muted);margin:0 0 16px}
+.related{margin-top:42px}.related h2{margin-bottom:6px}.related>p{margin-top:0;color:var(--muted)}.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.related-card{display:flex;min-height:170px;flex-direction:column;padding:20px;border:1px solid var(--line);border-radius:16px;text-decoration:none;background:#fff}.related-card span{font-size:11px;color:var(--wine);font-weight:800;letter-spacing:.08em}.related-card strong{margin-top:8px;color:var(--ink);font-size:17px;line-height:1.35}.related-card em{margin-top:auto;padding-top:16px;color:var(--navy);font-size:13px;font-style:normal;font-weight:700}
 .review{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.back{margin-top:30px}.back a{color:var(--navy);font-weight:700;text-decoration:none}
-.footer{margin-top:50px;background:var(--navy);color:#fff}.footer-in{max-width:1160px;margin:auto;padding:28px 20px;font-size:14px}
-@media(max-width:760px){.nav{align-items:flex-start}.hero h1{font-size:34px}.grid{grid-template-columns:1fr}.hero-in{padding-top:46px}.faqs{padding:22px}}
+.conversion{margin-top:44px;background:var(--navy);border-radius:22px;color:#fff;padding:30px}.conversion h2{margin:0 0 8px}.conversion p{margin:0;max-width:800px;color:#e7edf5}.conversion .actions{margin-top:18px}.conversion .cta.secondary{border-color:#fff;color:#fff;background:transparent}
+.footer{margin-top:50px;background:#081f39;color:#fff}.footer-in{max-width:1160px;margin:auto;padding:28px 20px;font-size:14px}.footer-in a{color:#fff}
+@media(max-width:760px){.nav{align-items:flex-start}.hero h1{font-size:34px}.grid,.related-grid{grid-template-columns:1fr}.hero-in{padding-top:34px}.faqs{padding:22px}.actions .cta{width:100%;text-align:center}}
 </style>
 </head>
 <body>
 <header class="top"><nav class="nav"><a class="brand" href="/cancer/">THE FACE CANCER CENTRE</a><a class="link" href="/">The Face Hospital</a></nav></header>
 <main>
-<section class="hero"><div class="hero-in"><div class="eyebrow">${escapeHtml(data.eyebrow)}</div><h1>${escapeHtml(data.h1)}</h1><p>${escapeHtml(data.intro)}</p><a class="cta" href="/cancer/#consultation">Book Cancer Consultation / Second Opinion</a></div></section>
-<section class="wrap"><div class="grid">${sections}</div>
-<section class="faqs"><h2>Common questions patients ask</h2>${faq}<p class="review">General patient information. Individual treatment decisions require examination, pathology and imaging review. Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p></section>
-<p class="back"><a href="/cancer/">← Back to The Face Cancer Centre</a></p></section>
+<section class="hero">
+  <div class="crumbs"><a href="/">Home</a> › <a href="/cancer/">Cancer Centre</a> › ${escapeHtml(data.eyebrow)}</div>
+  <div class="hero-in">
+    <div class="eyebrow">${escapeHtml(data.eyebrow)}</div>
+    <h1>${escapeHtml(data.h1)}</h1>
+    <p>${escapeHtml(data.intro)}</p>
+    <div class="actions">
+      <a class="cta" href="/cancer/#consultation">Book Cancer Consultation / Second Opinion</a>
+      <a class="cta secondary" href="tel:+919673311234">Call Cancer Desk</a>
+      <a class="cta whatsapp" href="https://wa.me/919673311234">WhatsApp</a>
+    </div>
+  </div>
+</section>
+<section class="wrap">
+  <div class="grid">${sections}</div>
+
+  <section class="second-opinion" aria-labelledby="second-opinion-title">
+    <h2 id="second-opinion-title">Preparing for a second opinion</h2>
+    <p>For a more useful review, keep your diagnostic material together. The exact tests needed vary by diagnosis and stage.</p>
+    <ul>
+      <li>Biopsy / histopathology report and slides or blocks when available</li>
+      <li>CT, MRI or PET-CT reports and the actual scan images</li>
+      <li>Previous surgery, radiotherapy or systemic-treatment records</li>
+      <li>Current medicines and important medical conditions</li>
+    </ul>
+  </section>
+
+  <section class="faqs"><h2>Common questions patients ask</h2>${faq}<p class="review">General patient information. Individual treatment decisions require examination, pathology and imaging review. Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p></section>
+
+  <section class="related" aria-labelledby="related-title">
+    <h2 id="related-title">Related head & neck cancer information</h2>
+    <p>Explore closely related tumour sites and treatment considerations.</p>
+    <div class="related-grid">${related}</div>
+  </section>
+
+  <section class="conversion" aria-labelledby="consult-title">
+    <h2 id="consult-title">Need a treatment-plan review?</h2>
+    <p>If you already have a biopsy or scan, a specialist consultation can help clarify staging, treatment alternatives, surgical extent, reconstruction needs and rehabilitation planning.</p>
+    <div class="actions">
+      <a class="cta" href="/cancer/#consultation">Request Consultation</a>
+      <a class="cta secondary" href="tel:+919673311234">Call +91 96733 11234</a>
+    </div>
+  </section>
+
+  <p class="back"><a href="/cancer/">← Back to The Face Cancer Centre</a></p>
+</section>
 </main>
-<footer class="footer"><div class="footer-in">The Face Cancer Centre • The Face Hospital • Amravati • Appointment desk: +91 74475 94447</div></footer>
+<footer class="footer"><div class="footer-in">The Face Cancer Centre • The Face Hospital • Amravati • Cancer desk: <a href="tel:+919673311234">+91 96733 11234</a></div></footer>
 </body></html>`;
 }
 

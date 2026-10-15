@@ -283,8 +283,6 @@ function injectCancerAnswerSection(html, route) {
     <p class="tfh-review">Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p>
   </section>`;
 
-  const consultation = /<([a-z0-9]+)([^>]*\\bid=["']consultation["'][^>]*)>/i;
-  if (consultation.test(html)) return html.replace(consultation, section + "\nfunction schemaFor(route, title, description, canonical) {");
   if (/<\\/main>/i.test(html)) return html.replace(/<\\/main>/i, section + "\n</main>");
   return html.replace(/<\\/body>/i, section + "\n</body>");
 }

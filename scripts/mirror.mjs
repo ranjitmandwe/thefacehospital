@@ -100,6 +100,33 @@ const ALIASES = {
   "/jaw-craniofacial.html": "/facial/"
 };
 
+const CANCER_FAQS = [
+  {
+    q: "What head and neck cancers are evaluated at The Face Cancer Centre?",
+    a: "The centre evaluates oral and tongue cancers, throat and laryngeal cancers, thyroid cancer, salivary gland tumours, jaw tumours, facial skin cancers, orbital tumours and other head and neck lesions. The exact treatment plan depends on the diagnosis, stage and the patient's overall condition."
+  },
+  {
+    q: "Does every head and neck cancer patient need surgery?",
+    a: "No. Treatment may involve surgery, radiotherapy, systemic therapy or a combination. The best sequence depends on the tumour site, stage, pathology, imaging and the patient's fitness and priorities."
+  },
+  {
+    q: "Can speech, swallowing and appearance be preserved?",
+    a: "Preserving function and appearance is an important treatment goal whenever it is oncologically safe. Surgical planning, reconstruction and rehabilitation are tailored to the tumour and the structures involved."
+  },
+  {
+    q: "What should I bring for a cancer consultation or second opinion?",
+    a: "Bring the biopsy or histopathology report, available slides or blocks if advised, CT/MRI/PET-CT images and reports, blood tests, previous treatment records, medication list and details of any prior surgery, radiotherapy or chemotherapy."
+  },
+  {
+    q: "When is a second opinion useful?",
+    a: "A second opinion can be useful before major surgery, when more than one treatment option exists, when reconstruction may be required, or when cancer has recurred or the diagnosis or treatment sequence is unclear."
+  },
+  {
+    q: "How quickly should treatment start after diagnosis?",
+    a: "Treatment should proceed without avoidable delay, but accurate staging, pathology review, medical optimisation and treatment planning are important. The appropriate urgency differs by tumour type, stage and individual clinical circumstances."
+  }
+];
+
 function normalizeUrl(raw, base) {
   try {
     if (!raw || raw.startsWith("#") || raw.startsWith("mailto:") || raw.startsWith("tel:") || raw.startsWith("javascript:") || raw.startsWith("data:")) return null;
@@ -224,6 +251,46 @@ function stripSeo(html) {
     .replace(/<script[^>]*id=["']tfh-seo-schema["'][^>]*>[\s\S]*?<\/script>/gi, "");
 }
 
+function injectCancerAnswerSection(html, route) {
+  if (route !== "/cancer/" || html.includes('id="tfh-ai-answer-guide"')) return html;
+
+  const cards = CANCER_FAQS.map(item => `
+    <article class="tfh-answer-card">
+      <h3>${escapeHtml(item.q)}</h3>
+      <p>${escapeHtml(item.a)}</p>
+    </article>`).join("");
+
+  const section = `
+  <style id="tfh-ai-answer-style">
+    #tfh-ai-answer-guide{max-width:1180px;margin:46px auto;padding:38px 24px;border-radius:22px;background:#f8fafc;border:1px solid #e5e7eb;box-sizing:border-box}
+    #tfh-ai-answer-guide .tfh-kicker{margin:0 0 8px;font:700 12px/1.4 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9b1c31}
+    #tfh-ai-answer-guide h2{margin:0 0 12px;font:700 30px/1.2 Arial,sans-serif;color:#172033}
+    #tfh-ai-answer-guide .tfh-intro{max-width:860px;margin:0 0 26px;font:400 16px/1.65 Arial,sans-serif;color:#465064}
+    #tfh-ai-answer-guide .tfh-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    #tfh-ai-answer-guide .tfh-answer-card{padding:20px;border-radius:16px;background:#fff;border:1px solid #e8ebf0}
+    #tfh-ai-answer-guide .tfh-answer-card h3{margin:0 0 8px;font:700 17px/1.35 Arial,sans-serif;color:#172033}
+    #tfh-ai-answer-guide .tfh-answer-card p{margin:0;font:400 15px/1.6 Arial,sans-serif;color:#4b5563}
+    #tfh-ai-answer-guide .tfh-review{margin:24px 0 0;padding-top:18px;border-top:1px solid #dfe3e8;font:600 13px/1.5 Arial,sans-serif;color:#5d6674}
+    #tfh-ai-answer-guide .tfh-second-opinion{display:inline-block;margin-top:16px;padding:11px 18px;border-radius:999px;background:#8f1d2c;color:#fff;text-decoration:none;font:700 14px/1 Arial,sans-serif}
+    @media(max-width:760px){#tfh-ai-answer-guide{margin:30px 14px;padding:26px 18px}#tfh-ai-answer-guide .tfh-answer-grid{grid-template-columns:1fr}#tfh-ai-answer-guide h2{font-size:25px}}
+  </style>
+  <section id="tfh-ai-answer-guide" aria-labelledby="tfh-ai-answer-title">
+    <p class="tfh-kicker">Quick answers for patients and families</p>
+    <h2 id="tfh-ai-answer-title">Head & Neck Cancer: What to Know Before Your Consultation</h2>
+    <p class="tfh-intro">Clear answers to common questions can make the first consultation easier. These points are general information; the final plan is individualised after examination, pathology and imaging review.</p>
+    <div class="tfh-answer-grid">${cards}</div>
+    <a class="tfh-second-opinion" href="#consultation">Book a cancer consultation / second opinion</a>
+    <p class="tfh-review">Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p>
+  </section>`;
+
+  const lower = html.toLowerCase();
+  const mainClose = lower.lastIndexOf("</main>");
+  if (mainClose !== -1) return html.slice(0, mainClose) + section + "\n" + html.slice(mainClose);
+  const bodyClose = lower.lastIndexOf("</body>");
+  if (bodyClose !== -1) return html.slice(0, bodyClose) + section + "\n" + html.slice(bodyClose);
+  return html + section;
+}
+
 function schemaFor(route, title, description, canonical) {
   const graph = [
     {
@@ -258,14 +325,28 @@ function schemaFor(route, title, description, canonical) {
       "@id": SITE + "/#dr-ranjit-mandwe",
       "name": "Dr. Ranjit Mandwe",
       "jobTitle": "Head & Neck Oncosurgeon and Maxillofacial Surgeon",
-      "worksFor": { "@id": SITE + "/#clinic" }
+      "worksFor": { "@id": SITE + "/#clinic" },
+      "knowsAbout": [
+        "Head and neck cancer",
+        "Oral cancer",
+        "Tongue cancer",
+        "Thyroid cancer",
+        "Salivary gland tumours",
+        "Jaw cancer surgery",
+        "Neck dissection",
+        "Head and neck reconstruction",
+        "Speech and swallowing rehabilitation"
+      ]
     },
     {
-      "@type": route === "/" ? "WebSite" : "WebPage",
+      "@type": route === "/" ? "WebSite" : (route.startsWith("/cancer/") ? "MedicalWebPage" : "WebPage"),
       "@id": canonical + "#webpage",
       "url": canonical,
       "name": title,
       "description": description,
+      "author": route === "/" ? undefined : { "@id": SITE + "/#dr-ranjit-mandwe" },
+      "reviewedBy": route.startsWith("/cancer/") ? { "@id": SITE + "/#dr-ranjit-mandwe" } : undefined,
+      "about": route.startsWith("/cancer/") ? { "@id": SITE + "/cancer/#cancer-centre" } : undefined,
       "isPartOf": route === "/" ? undefined : { "@id": SITE + "/#website" }
     }
   ];
@@ -277,6 +358,31 @@ function schemaFor(route, title, description, canonical) {
       "url": SITE + "/",
       "name": "The Face Hospital"
     });
+
+    if (route.startsWith("/cancer/")) {
+      graph.push({
+        "@type": "MedicalClinic",
+        "@id": SITE + "/cancer/#cancer-centre",
+        "name": "The Face Cancer Centre",
+        "url": SITE + "/cancer/",
+        "telephone": "+91-96733-11234",
+        "parentOrganization": { "@id": SITE + "/#clinic" },
+        "areaServed": ["Amravati", "Vidarbha", "Maharashtra", "India"],
+        "medicalSpecialty": "Oncology"
+      });
+    }
+
+    if (route === "/cancer/") {
+      graph.push({
+        "@type": "FAQPage",
+        "@id": canonical + "#faq",
+        "mainEntity": CANCER_FAQS.map(item => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": { "@type": "Answer", "text": item.a }
+        }))
+      });
+    }
 
     if (route === "/facial/") {
       graph.push({
@@ -368,6 +474,7 @@ async function applySeo() {
     const robots = aliasTarget ? "noindex,follow" : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 
     html = stripSeo(html);
+    html = injectCancerAnswerSection(html, canonicalRoute);
 
     if (configured.title) {
       if (/<title[^>]*>[\s\S]*?<\/title>/i.test(html)) html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
@@ -387,6 +494,7 @@ async function applySeo() {
     const seoBlock = [
       `<link rel="canonical" href="${canonical}">`,
       `<meta name="robots" content="${robots}">`,
+      `<meta name="author" content="Dr. Ranjit Mandwe">`,
       `<meta property="og:type" content="website">`,
       `<meta property="og:site_name" content="The Face Hospital">`,
       `<meta property="og:title" content="${escapeHtml(title)}">`,
@@ -414,7 +522,7 @@ async function applySeo() {
     '\n</urlset>\n';
 
   await writeFile(path.join(OUT, "sitemap.xml"), sitemapXml);
-  await writeFile(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+  await writeFile(path.join(OUT, "robots.txt"), `User-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\n\nUser-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
   console.log(`SEO: optimized ${htmlFiles.length} HTML files; sitemap contains ${unique.length} canonical URLs.`);
 }
 

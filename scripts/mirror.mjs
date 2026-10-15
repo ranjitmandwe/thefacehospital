@@ -283,8 +283,12 @@ function injectCancerAnswerSection(html, route) {
     <p class="tfh-review">Medical content reviewed by Dr. Ranjit Mandwe, Head & Neck Oncosurgeon.</p>
   </section>`;
 
-  if (/<\\/main>/i.test(html)) return html.replace(/<\\/main>/i, section + "\n</main>");
-  return html.replace(/<\\/body>/i, section + "\n</body>");
+  const lower = html.toLowerCase();
+  const mainClose = lower.lastIndexOf("</main>");
+  if (mainClose !== -1) return html.slice(0, mainClose) + section + "\n" + html.slice(mainClose);
+  const bodyClose = lower.lastIndexOf("</body>");
+  if (bodyClose !== -1) return html.slice(0, bodyClose) + section + "\n" + html.slice(bodyClose);
+  return html + section;
 }
 
 function schemaFor(route, title, description, canonical) {

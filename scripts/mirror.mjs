@@ -56,6 +56,16 @@ const SEO = {
     description: "Evaluation and surgical management of facial skin cancers in Amravati, with oncologic clearance, reconstruction and attention to facial form and function.",
     image: "/assets/v137/card-cancer.jpg"
   },
+  "/doctor/dr-ranjit-mandwe/": {
+    title: "Dr Ranjit Mandwe | Head & Neck Oncosurgeon in Amravati",
+    description: "Dr Ranjit Mandwe is a Head & Neck Oncosurgeon and Maxillofacial Surgeon at The Face Hospital, Amravati, with advanced training exposure at MSKCC New York and Tata Memorial Mumbai.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
+  "/contact/": {
+    title: "Contact The Face Hospital Amravati | Appointments & Directions",
+    description: "Contact The Face Hospital, Rajapeth, Amravati for cancer, facial surgery, dental implant and orthodontic appointments. View timings, phone numbers, WhatsApp and directions.",
+    image: "/assets/v137/home-hero-core.jpg"
+  },
   "/facial/": {
     title: "Facial Surgery, Jaw Correction & Rhinoplasty in Amravati | The Face Hospital",
     description: "Surgeon-led facial surgery and aesthetics in Amravati for jaw correction, rhinoplasty, facial contouring, facial rejuvenation, corrective facial surgery and hair restoration.",
@@ -324,6 +334,7 @@ function schemaFor(route, title, description, canonical) {
       "@type": "Physician",
       "@id": SITE + "/#dr-ranjit-mandwe",
       "name": "Dr. Ranjit Mandwe",
+      "url": SITE + "/doctor/dr-ranjit-mandwe/",
       "jobTitle": "Head & Neck Oncosurgeon and Maxillofacial Surgeon",
       "worksFor": { "@id": SITE + "/#clinic" },
       "knowsAbout": [
@@ -707,6 +718,116 @@ function diseasePageHtml(route, data) {
 </body></html>`;
 }
 
+
+function doctorProfileHtml() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dr Ranjit Mandwe | Head & Neck Oncosurgeon in Amravati</title>
+<meta name="description" content="Dr Ranjit Mandwe is a Head & Neck Oncosurgeon and Maxillofacial Surgeon at The Face Hospital, Amravati.">
+<style>
+:root{--ink:#172033;--muted:#5c6676;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.65;background:#fff}
+header{border-bottom:1px solid var(--line);background:#fff}.nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;gap:18px}.nav a{text-decoration:none;color:var(--ink);font-weight:700}.brand{color:var(--wine)!important}
+.hero{background:linear-gradient(135deg,#f7f9fc,#eef3f8)}.hero-in,.wrap{max-width:1160px;margin:auto;padding:54px 20px}.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:800;color:var(--wine)}h1{font-size:44px;line-height:1.12;margin:9px 0 13px}.lead{font-size:19px;color:var(--muted);max-width:900px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:700;background:var(--wine);color:#fff}.btn.alt{background:var(--navy)}.btn.light{background:#fff;color:var(--navy);border:1px solid #cad2dd}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}.card{border:1px solid var(--line);border-radius:18px;padding:26px;background:#fff}.card h2{margin-top:0}.list{padding-left:20px}.list li{margin:8px 0}.specialties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pill{border:1px solid var(--line);border-radius:14px;padding:15px;background:var(--soft);font-weight:700}
+.note{margin-top:26px;background:#fff8f9;border:1px solid #ecd7db;border-radius:18px;padding:24px}.note h2{margin-top:0}.footer{margin-top:48px;background:#081f39;color:#fff}.footer-in{max-width:1160px;margin:auto;padding:28px 20px}.footer a{color:#fff}
+@media(max-width:760px){h1{font-size:34px}.grid,.specialties{grid-template-columns:1fr}.hero-in{padding-top:40px}.actions .btn{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="brand" href="/">THE FACE HOSPITAL</a><a href="/cancer/">Cancer Centre</a><a href="/contact/">Contact</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in">
+<div class="eyebrow">HEAD & NECK ONCOLOGY • MAXILLOFACIAL SURGERY</div>
+<h1>Dr Ranjit Mandwe</h1>
+<p class="lead">Head & Neck Oncosurgeon and Maxillofacial Surgeon, focused on oral and head & neck cancer surgery, reconstruction, function preservation and rehabilitation.</p>
+<div class="actions"><a class="btn" href="/cancer/#consultation">Book Cancer Consultation</a><a class="btn alt" href="tel:+919673311234">Call Cancer Desk</a><a class="btn light" href="https://wa.me/919673311234">WhatsApp</a></div>
+</div></section>
+<section class="wrap">
+<div class="grid">
+<article class="card">
+<h2>Training & professional profile</h2>
+<ul class="list">
+<li>Fellow, Head & Neck Surgery & Oncology, USA</li>
+<li>Advanced training exposure at Memorial Sloan Kettering Cancer Center, New York</li>
+<li>Observership / clinical exposure at Tata Memorial Cancer Hospital, Mumbai</li>
+<li>MDS, Maxillofacial Surgery, Nagpur</li>
+<li>Consultant experience across oncology and superspeciality hospital settings</li>
+<li>Director, The Face Hospital, Amravati</li>
+</ul>
+</article>
+<article class="card">
+<h2>Clinical focus</h2>
+<div class="specialties">
+<div class="pill">Oral & tongue cancer</div><div class="pill">Thyroid cancer</div><div class="pill">Salivary gland tumours</div><div class="pill">Jaw cancer surgery</div><div class="pill">Neck dissection</div><div class="pill">Head & neck reconstruction</div><div class="pill">Speech & swallowing preservation</div><div class="pill">Cancer rehabilitation</div>
+</div>
+</article>
+</div>
+<section class="note">
+<h2>Approach to treatment</h2>
+<p>The treatment priority is cancer control. Where clinically and oncologically appropriate, planning also aims to preserve speech, swallowing, appearance, oral function and quality of life. Major treatment decisions are individualised after examination, pathology and imaging review.</p>
+</section>
+<section class="note">
+<h2>For patients seeking a second opinion</h2>
+<p>Bring your biopsy or histopathology report, scan reports and actual CT/MRI/PET-CT images, previous treatment records and a current medication list. These help make the consultation more useful and reduce avoidable repetition of investigations.</p>
+</section>
+</section>
+</main>
+<footer class="footer"><div class="footer-in">The Face Hospital • Rajapeth, Amravati • <a href="/contact/">Appointments & directions</a></div></footer>
+</body></html>`;
+}
+
+function contactPageHtml() {
+  const address = "The Face Hospital, 1st Floor, Tejul Tower, Opp. P. N. Gadgil & Kalyan Jewellers, Rajapeth–Rajkamal Road, Amravati 444601";
+  const mapQ = encodeURIComponent(address);
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact The Face Hospital Amravati | Appointments & Directions</title>
+<meta name="description" content="Contact The Face Hospital, Rajapeth, Amravati. Appointment timings, cancer desk, dental desk, WhatsApp and directions.">
+<style>
+:root{--ink:#172033;--muted:#5c6676;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.65}header{border-bottom:1px solid var(--line)}.nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between}.nav a{text-decoration:none;color:var(--ink);font-weight:700}.brand{color:var(--wine)!important}
+.hero{background:linear-gradient(135deg,#f7f9fc,#eef3f8)}.hero-in,.wrap{max-width:1160px;margin:auto;padding:48px 20px}.hero h1{font-size:42px;margin:0 0 12px}.hero p{font-size:18px;color:var(--muted);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border:1px solid var(--line);border-radius:18px;padding:24px}.card h2{margin-top:0}.phone{font-size:22px;font-weight:800;color:var(--navy);text-decoration:none}.muted{color:var(--muted)}.btn{display:inline-block;margin-top:12px;padding:11px 17px;border-radius:999px;text-decoration:none;background:var(--wine);color:#fff;font-weight:700}.btn.alt{background:var(--navy)}.hours{margin:0;padding-left:20px}.map{margin-top:28px;border:0;width:100%;min-height:390px;border-radius:18px}.footer{margin-top:46px;background:#081f39;color:#fff}.footer-in{max-width:1160px;margin:auto;padding:26px 20px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header><nav class="nav"><a class="brand" href="/">THE FACE HOSPITAL</a><a href="/doctor/dr-ranjit-mandwe/">Dr Ranjit Mandwe</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in"><h1>Contact & Appointments</h1><p>For appointments, second opinions and directions to The Face Hospital in Rajapeth, Amravati.</p></div></section>
+<section class="wrap">
+<div class="grid">
+<article class="card"><h2>Central appointment desk</h2><a class="phone" href="tel:+917447594447">+91 74475 94447</a><p class="muted">For general appointment coordination across The Face Hospital.</p><a class="btn" href="https://wa.me/917447594447">WhatsApp Central Desk</a></article>
+<article class="card"><h2>Cancer Centre</h2><a class="phone" href="tel:+919673311234">+91 96733 11234</a><p class="muted">For head & neck cancer consultations and second opinions.</p><a class="btn" href="https://wa.me/919673311234">WhatsApp Cancer Desk</a></article>
+<article class="card"><h2>Dental department</h2><a class="phone" href="tel:+917378966884">+91 73789 66884</a><p class="muted">Dental implants, braces, aligners and related dental care.</p><a class="btn alt" href="tel:+917378966884">Call Dental Desk</a></article>
+<article class="card"><h2>Consultation hours</h2><ul class="hours"><li>Monday–Saturday: 11:00 AM–3:00 PM</li><li>Monday–Saturday: 6:00 PM–9:00 PM</li><li>Sunday: Closed</li></ul></article>
+</div>
+<article class="card" style="margin-top:18px"><h2>Address</h2><p><strong>${address}</strong></p><a class="btn alt" href="https://www.google.com/maps/search/?api=1&query=${mapQ}">Open directions in Google Maps</a></article>
+<iframe class="map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${mapQ}&output=embed" title="Map to The Face Hospital, Amravati"></iframe>
+</section>
+</main>
+<footer class="footer"><div class="footer-in">The Face Hospital • Amravati</div></footer>
+</body></html>`;
+}
+
+async function createTrustPages() {
+  const doctorFile = path.join(OUT, "doctor/dr-ranjit-mandwe/index.html");
+  const contactFile = path.join(OUT, "contact/index.html");
+  await mkdir(path.dirname(doctorFile), { recursive: true });
+  await mkdir(path.dirname(contactFile), { recursive: true });
+  await writeFile(doctorFile, doctorProfileHtml());
+  await writeFile(contactFile, contactPageHtml());
+  console.log("Trust pages: generated doctor profile and contact page.");
+}
+
 async function createDiseasePages() {
   for (const [route, data] of Object.entries(DISEASE_PAGES)) {
     const file = path.join(OUT, route.replace(/^\//, ""));
@@ -734,6 +855,12 @@ async function applySeo() {
 
     html = stripSeo(html);
     html = injectCancerAnswerSection(html, canonicalRoute);
+    if (canonicalRoute === "/" || canonicalRoute === "/cancer/") {
+      html = html
+        .replace(/href=["']\/cancer\/#surgeon["']/gi, 'href="/doctor/dr-ranjit-mandwe/"')
+        .replace(/href=["']#surgeon["']/gi, 'href="/doctor/dr-ranjit-mandwe/"')
+        .replace(/href=["']\/contact\.html["']/gi, 'href="/contact/"');
+    }
 
     if (configured.title) {
       if (/<title[^>]*>[\s\S]*?<\/title>/i.test(html)) html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
@@ -793,6 +920,7 @@ while (queue.length) {
 
 await copyTree(OVERRIDES, OUT);
 await createDiseasePages();
+await createTrustPages();
 await applySeo();
 
 const count = seen.size;

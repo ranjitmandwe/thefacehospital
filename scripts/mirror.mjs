@@ -86,6 +86,11 @@ const SEO = {
     description: "Understand why jaw reconstruction may be needed after cancer surgery, common reconstructive options and the goals for speech, swallowing, facial form and rehabilitation.",
     image: "/assets/v137/card-cancer.jpg"
   },
+  "/patient-stories/": {
+    title: "Patient Stories & Experiences | The Face Hospital Amravati",
+    description: "Real, consented patient and family experiences from The Face Cancer Centre, Amravati, with treatment-journey videos and verified Google review highlights.",
+    image: "/assets/v137/card-cancer.jpg"
+  },
   "/facial/": {
     title: "Facial Surgery, Jaw Correction & Rhinoplasty in Amravati | The Face Hospital",
     description: "Surgeon-led facial surgery and aesthetics in Amravati for jaw correction, rhinoplasty, facial contouring, facial rejuvenation, corrective facial surgery and hair restoration.",
@@ -962,6 +967,93 @@ async function createResourcePages() {
   console.log(`Resources: generated 1 hub and ${Object.keys(RESOURCE_ARTICLES).length} patient guides.`);
 }
 
+
+function patientStoriesHtml() {
+  const googleReviews = [
+    "Best Doctor, best treatment, best facilities.",
+    "Excellent service very easy transition",
+    "Very friendly co operative staff management ."
+  ];
+
+  const storyCards = [
+    ["Patient Story 1", "Primary testimonial", "A direct patient experience shared with consent. This is one of the strongest short-form stories selected for the website."],
+    ["Patient Story 2", "Primary testimonial", "A longer patient experience selected for the main Patient Stories collection."],
+    ["Patient Story 5", "Patient & family experience", "A wider patient/family story preserved in its natural framing to keep the interaction authentic."],
+    ["Patient Story 3", "Additional patient experience", "A consented patient story retained as part of the extended story library."],
+    ["Patient Story 4", "Additional patient/family experience", "A consented patient/family account presented without aggressive cropping or promotional effects."]
+  ];
+
+  const cards = storyCards.map(([title,label,body],i) => `
+    <article class="story-card">
+      <div class="media">
+        <div class="media-badge">REAL PATIENT STORY</div>
+        <div class="play" aria-hidden="true">▶</div>
+        <div class="media-note">Video ${i+1} • final branded edit ready</div>
+      </div>
+      <div class="story-body">
+        <span class="kicker">${escapeHtml(label)}</span>
+        <h2>${escapeHtml(title)}</h2>
+        <p>${escapeHtml(body)}</p>
+        <p class="consent">Shared with patient consent.</p>
+      </div>
+    </article>`).join("");
+
+  const reviewCards = googleReviews.map(text => `
+    <blockquote class="review-card"><p>“${escapeHtml(text)}”</p><cite>Public Google review highlight</cite></blockquote>
+  `).join("");
+
+  const mapsReviewUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("The Face Superspeciality Cancer Hospital & Research Centre, Amravati");
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Patient Stories & Experiences | The Face Hospital Amravati</title>
+<meta name="description" content="Real, consented patient and family experiences from The Face Cancer Centre, Amravati, with treatment-journey videos and verified Google review highlights.">
+<style>
+:root{--ink:#172033;--muted:#5c6676;--wine:#8f1d2c;--navy:#0d3158;--line:#e4e8ee;--soft:#f7f9fc}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.65;background:#fff}
+header{border-bottom:1px solid var(--line);background:#fff}.nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--ink);font-weight:700}.brand{color:var(--wine)!important}
+.hero{background:linear-gradient(135deg,#f8fafc,#edf3f8)}.hero-in,.wrap{max-width:1160px;margin:auto;padding:52px 20px}.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:800;color:var(--wine)}.hero h1{font-size:45px;line-height:1.1;margin:8px 0 14px}.hero p{font-size:18px;color:var(--muted);max-width:900px}.trust-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.trust-pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700}
+.section-head{max-width:800px;margin-bottom:22px}.section-head h2{font-size:30px;margin:0 0 8px}.section-head p{margin:0;color:var(--muted)}
+.story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.story-card{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff}.media{min-height:310px;background:linear-gradient(135deg,#0b2542,#173e69);position:relative;display:flex;align-items:center;justify-content:center;color:#fff}.play{width:72px;height:72px;border-radius:50%;background:#fff;color:var(--wine);display:flex;align-items:center;justify-content:center;font-size:30px;padding-left:5px}.media-badge{position:absolute;left:18px;top:18px;font-size:11px;font-weight:800;letter-spacing:.1em}.media-note{position:absolute;left:18px;bottom:16px;font-size:13px;color:#e7edf5}.story-body{padding:22px}.kicker{font-size:11px;color:var(--wine);font-weight:800;letter-spacing:.09em;text-transform:uppercase}.story-body h2{margin:5px 0 8px;font-size:22px}.story-body p{margin:0;color:var(--muted)}.story-body .consent{margin-top:12px;font-size:12px;font-weight:700;color:#687283}
+.production-note{margin-top:24px;padding:20px 22px;background:#fff8f9;border:1px solid #ecd7db;border-radius:16px}.production-note p{margin:0;color:var(--muted)}
+.reviews{margin-top:48px;padding:30px;background:var(--soft);border:1px solid var(--line);border-radius:22px}.review-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-end}.review-top h2{margin:0}.rating{font-size:34px;font-weight:800;color:var(--navy)}.rating small{font-size:13px;color:var(--muted);font-weight:600}.review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}.review-card{margin:0;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px}.review-card p{margin:0 0 12px}.review-card cite{font-style:normal;color:var(--muted);font-size:12px}.review-link{display:inline-block;margin-top:18px;color:var(--navy);font-weight:700;text-decoration:none}
+.cta{margin-top:42px;padding:30px;border-radius:22px;background:var(--navy);color:#fff}.cta h2{margin:0 0 8px}.cta p{margin:0;color:#e7edf5;max-width:850px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;padding:11px 17px;border-radius:999px;background:var(--wine);color:#fff;text-decoration:none;font-weight:700}.btn.alt{background:transparent;border:1px solid #fff}
+.footer{margin-top:48px;background:#081f39;color:#fff}.footer-in{max-width:1160px;margin:auto;padding:26px 20px}.footer a{color:#fff}
+@media(max-width:820px){.story-grid,.review-grid{grid-template-columns:1fr}.hero h1{font-size:35px}.review-top{display:block}.media{min-height:250px}.actions .btn{width:100%;text-align:center}}
+</style></head><body>
+<header><nav class="nav"><a class="brand" href="/">THE FACE HOSPITAL</a><a href="/cancer/">Cancer Centre</a><a href="/resources/">Patient Resources</a><a href="/doctor/dr-ranjit-mandwe/">Dr Ranjit Mandwe</a><a href="/contact/">Contact</a></nav></header>
+<main>
+<section class="hero"><div class="hero-in">
+<div class="eyebrow">THE FACE CANCER CENTRE • AMRAVATI</div>
+<h1>Real Patient Stories. Real Treatment Journeys.</h1>
+<p>For many families, hearing directly from someone who has already gone through treatment is more meaningful than promotional claims. This section is built around real, consented patient and family experiences.</p>
+<div class="trust-row"><span class="trust-pill">✓ Real patients</span><span class="trust-pill">✓ Consent confirmed</span><span class="trust-pill">✓ Original voices preserved</span><span class="trust-pill">✓ No fabricated testimonials</span></div>
+</div></section>
+<section class="wrap">
+<div class="section-head"><h2>Patient video experiences</h2><p>The strongest stories are placed first. The final edits use restrained hospital branding so the patient’s face and voice remain the focus.</p></div>
+<div class="story-grid">${cards}</div>
+<div class="production-note"><p><strong>Video integration:</strong> the five final branded edits are complete. The website page is being prepared with the player layout now; actual playback will be connected through a stable public video host rather than loading large raw files directly into the page.</p></div>
+
+<section class="reviews">
+<div class="review-top"><div><h2>What patients say on Google</h2><p>Current public feedback for The Face Superspeciality Cancer Hospital & Research Centre.</p></div><div class="rating">4.8 / 5<br><small>57 public reviews • checked Oct 2026</small></div></div>
+<div class="review-grid">${reviewCards}</div>
+<a class="review-link" href="${mapsReviewUrl}">Read more public reviews on Google →</a>
+</section>
+
+<section class="cta"><h2>Need a cancer consultation or second opinion?</h2><p>Bring your biopsy or histopathology report, scan reports and actual CT/MRI/PET-CT images, previous treatment records and current medicines when available.</p><div class="actions"><a class="btn" href="/cancer/#consultation">Book Cancer Consultation</a><a class="btn alt" href="tel:+919673311234">Call / WhatsApp +91 96733 11234</a></div></section>
+</section>
+</main>
+<footer class="footer"><div class="footer-in">The Face Hospital • Amravati • <a href="/resources/">Patient Resources</a> • <a href="/contact/">Appointments & directions</a></div></footer>
+</body></html>`;
+}
+
+async function createPatientStoriesPage() {
+  const file = path.join(OUT, "patient-stories/index.html");
+  await mkdir(path.dirname(file), { recursive: true });
+  await writeFile(file, patientStoriesHtml());
+  console.log("Patient stories: generated consented trust-evidence page.");
+}
+
 async function createDiseasePages() {
   for (const [route, data] of Object.entries(DISEASE_PAGES)) {
     const file = path.join(OUT, route.replace(/^\//, ""));
@@ -995,7 +1087,9 @@ async function applySeo() {
         .replace(/href=["']#surgeon["']/gi, 'href="/doctor/dr-ranjit-mandwe/"')
         .replace(/href=["']\/contact\.html["']/gi, 'href="/contact/"')
         .replace(/href=["']#resources["']/gi, 'href="/resources/"')
-        .replace(/href=["']\/resources\.html["']/gi, 'href="/resources/"');
+        .replace(/href=["']\/resources\.html["']/gi, 'href="/resources/"')
+        .replace(/href=["']#patient-stories["']/gi, 'href="/patient-stories/"')
+        .replace(/href=["']\/patient-stories\.html["']/gi, 'href="/patient-stories/"');
     }
 
     if (configured.title) {
@@ -1058,6 +1152,7 @@ await copyTree(OVERRIDES, OUT);
 await createDiseasePages();
 await createTrustPages();
 await createResourcePages();
+await createPatientStoriesPage();
 await applySeo();
 
 const count = seen.size;
